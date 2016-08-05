@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <title>run hello vcs cwrap</title>
+    <script src="VCS.js"></script>
+    <script src="VCSWrapper.js"></script>
+  </head>
+  <body>
+  	<script>
+      var pVCS = createVCSSystem();
+
+  		var pt1 = createVCSMPoint3d(1, 0, 0);
+  		var pt2 = createVCSMPoint3d(2, 0, 0);
+  		var cor = createVCSMPoint3d(0, 0, 0);
+
+      var t = createVCSMMatrix3d();
+
+      var b1 = createRBody(pVCS, 1, t, cor);
+      var b2 = createRBody(pVCS, 2, t, cor);
+
+  		var x1 = showPointX(pt1, b1);
+  		var x2 = showPointX(pt2, b2);
+      var y1 = showPointY(pt1, b1);
+      var y2 = showPointY(pt2, b2);
+      document.write("before solve pt1.x = " + x1 +'\n' + "<br>");
+      document.write("before solve pt2.x = " + x2 +'\n' + "<br>");
+      document.write("before solve pt1.y = " + y1 +'\n' + "<br>");
+      document.write("before solve pt2.y = " + y2 +'\n' + "<br>" + "<br>");
+
+      create3dDistPtPt(pVCS, b1, b2, pt1, pt2, 10);
+
+      var status = solve(pVCS);
+
+      var status_str = showVCSStatus(status);
+      document.write("solve status = " + status_str +'\n' + "<br>" + "<br>");
+
+      var x3 = showPointX(pt1, b1);
+      var x4 = showPointX(pt2, b2);
+      var y3 = showPointY(pt1, b1);
+      var y4 = showPointY(pt2, b2);
+      document.write("after solve pt1.x = " + x3 +'\n' + "<br>");
+      document.write("after solve pt2.x = " + x4 +'\n' + "<br>");
+      document.write("after solve pt1.y = " + y3 +'\n' + "<br>");
+      document.write("after solve pt2.y = " + y4 +'\n' + "<br>" + "<br>");
+
+      Module._free(pt1);
+      Module._free(pt2);
+      Module._free(cor);
+      Module._free(t);
+
+    </script>
+  </body>
+</html>
